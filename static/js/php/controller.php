@@ -82,11 +82,45 @@ if (isset($_GET["callback"])) {
 
 function moveObs($object, $content)
     {
-        $accessKeyId = 'HPUAEGBPX949TBKDCSS5';
-        $accessKeySecret = 'swOSCwj7bg3tnywIAMoTM079XzFg6CEATvyqc6J4';
-        $endpoint = 'obs.cn-east-4.myhuaweicloud.com';
-        $bucket = 'liaotianshi1202';
-        
+        $accessKeyId = 'HPUADKD860ULTAAE8TDB';
+        $accessKeySecret = '165di598gNnONKYGVStNRyZFx6ElS13oVJrmKiZC';
+        $endpoint = 'obs.cn-north-12.myhuaweicloud.com';
+        $bucket = 'kefuimage1202';
+        $options = array(
+            // 可以参看https://help.aliyun.com/document_detail/31859.html?spm=a2c4g.11186623.2.10.481e2b72ggLS4F#concept-lkf-swy-5db
+            OssClient::OSS_CONTENT_TYPE => 'image/jpg',  // 简单的举例使用 要根据实际的图片类型 可以看下MimeTypes::getMimetype()里的
+        );
+        try {
+            $obsClient = new ObsClient([
+                'key' => $accessKeyId,
+                'secret' => $accessKeySecret,
+                'endpoint' => $endpoint
+         ]);
+         $res = $obsClient->putObject([
+                'Bucket' => $bucket,
+                'Key' => $object,
+                'Body' => $content
+        ]);
+                  
+        //下载对象
+       /* $resp = $obsClient->getObject([
+            'Bucket' => $bucket,
+            'Key' => $object,
+            'SaveAsFile'=>'/home/www/wwwroot/shangshui_image/upload/kefu/'.date('Y-m-d').'/'.$object,
+        ]);*/
+        } catch (OssException $e) {
+            print $e->getMessage();
+        }
+        return $res['ObjectURL'];
+    }
+
+
+function moveOss($object, $content)
+    {
+        $accessKeyId = 'HPUADKD860ULTAAE8TDB';
+        $accessKeySecret = '165di598gNnONKYGVStNRyZFx6ElS13oVJrmKiZC';
+        $endpoint = 'obs.cn-north-12.myhuaweicloud.com';
+        $bucket = 'kefuimage1202';
         $options = array(
             // 可以参看https://help.aliyun.com/document_detail/31859.html?spm=a2c4g.11186623.2.10.481e2b72ggLS4F#concept-lkf-swy-5db
             OssClient::OSS_CONTENT_TYPE => 'image/jpg',  // 简单的举例使用 要根据实际的图片类型 可以看下MimeTypes::getMimetype()里的
@@ -106,24 +140,4 @@ function moveObs($object, $content)
             print $e->getMessage();
         }
         return $res['ObjectURL'];
-    }
-
-
-function moveOss($object, $content)
-    {
-          $accessKeyId = '';
-        $accessKeySecret = '';
-        $endpoint = '';
-        $bucket = '';
-        $options = array(
-            // 可以参看https://help.aliyun.com/document_detail/31859.html?spm=a2c4g.11186623.2.10.481e2b72ggLS4F#concept-lkf-swy-5db
-            OssClient::OSS_CONTENT_TYPE => 'image/jpg',  // 简单的举例使用 要根据实际的图片类型 可以看下MimeTypes::getMimetype()里的
-        );
-        try {
-            $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
-            $res = $ossClient->putObject($bucket, $object, $content, $options);
-        } catch (OssException $e) {
-            print $e->getMessage();
-        }
-        return $res['info']['url'];
     }
