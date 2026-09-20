@@ -101,6 +101,13 @@ function moveObs($object, $content)
                 'Key' => $object,
                 'Body' => $content
         ]);
+                  
+        //下载对象
+       /* $resp = $obsClient->getObject([
+            'Bucket' => $bucket,
+            'Key' => $object,
+            'SaveAsFile'=>'/home/www/wwwroot/shangshui_image/upload/kefu/'.date('Y-m-d').'/'.$object,
+        ]);*/
         } catch (OssException $e) {
             print $e->getMessage();
         }
