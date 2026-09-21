@@ -82,10 +82,10 @@ if (isset($_GET["callback"])) {
 
 function moveObs($object, $content)
     {
-        $accessKeyId = 'HPUADKD860ULTAAE8TDB';
-        $accessKeySecret = '165di598gNnONKYGVStNRyZFx6ElS13oVJrmKiZC';
+        $accessKeyId = 'HPUAO12VAZRN99LP0X6Y';
+        $accessKeySecret = '2Z7n5IuRXSJTbcUzUpd9s3WjBww5ksrHTdRgEBYj';
         $endpoint = 'obs.cn-north-12.myhuaweicloud.com';
-        $bucket = 'kefuimage1202';
+        $bucket = 'allimage123';
         $options = array(
             // 可以参看https://help.aliyun.com/document_detail/31859.html?spm=a2c4g.11186623.2.10.481e2b72ggLS4F#concept-lkf-swy-5db
             OssClient::OSS_CONTENT_TYPE => 'image/jpg',  // 简单的举例使用 要根据实际的图片类型 可以看下MimeTypes::getMimetype()里的
